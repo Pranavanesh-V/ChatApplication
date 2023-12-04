@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -39,26 +38,15 @@ public class Home_page extends AppCompatActivity  {
 
         setupRecyclerView();
         getUserData();
-        New_Chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Home_page.this,Search_Page.class);
-                startActivity(intent);
-            }
+        New_Chat.setOnClickListener(view -> {
+            Intent intent=new Intent(Home_page.this,Search_Page.class);
+            startActivity(intent);
         });
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Home_page.this,Search_Page.class);
-                startActivity(intent);
-            }
+        search.setOnClickListener(view -> {
+            Intent intent=new Intent(Home_page.this,Search_Page.class);
+            startActivity(intent);
         });
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupMenuForMenu();
-            }
-        });
+        menu.setOnClickListener(view -> showPopupMenuForMenu());
     }
 
     void setupRecyclerView()
@@ -122,24 +110,25 @@ public class Home_page extends AppCompatActivity  {
         popupMenu.setOnMenuItemClickListener(item -> {
             // Handle item selection here
             String option=item.getTitle().toString();
-            if (option.equals("About"))
-            {
-                Intent intent=new Intent(Home_page.this, About_Page.class);
-                startActivity(intent);
-            }
-            else if (option.equals("Logout"))
-            {
-                logout();
-            }
-            else if (option.equals("Profile"))
-            {
-                Intent intent=new Intent(Home_page.this, Profile_page.class);
-                startActivityForResult(intent,2);
-            }
-            else if (option.equals("Security"))
-            {
-                Intent intent=new Intent(Home_page.this, Security_page.class);
-                startActivity(intent);
+            switch (option) {
+                case "About": {
+                    Intent intent = new Intent(Home_page.this, About_Page.class);
+                    startActivity(intent);
+                    break;
+                }
+                case "Logout":
+                    logout();
+                    break;
+                case "Profile": {
+                    Intent intent = new Intent(Home_page.this, Profile_page.class);
+                    startActivityForResult(intent, 2);
+                    break;
+                }
+                case "Security": {
+                    Intent intent = new Intent(Home_page.this, Security_page.class);
+                    startActivity(intent);
+                    break;
+                }
             }
 
             return true;

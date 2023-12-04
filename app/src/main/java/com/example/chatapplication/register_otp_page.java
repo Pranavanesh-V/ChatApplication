@@ -7,7 +7,6 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,11 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
@@ -93,17 +89,12 @@ public class register_otp_page extends AppCompatActivity {
         E_Otp.addTextChangedListener(login);
 
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PhoneAuthCredential credential =  PhoneAuthProvider.getCredential(verificationCode,S_opt);
-                signIn(credential);
-            }
+        submit.setOnClickListener(view -> {
+            PhoneAuthCredential credential =  PhoneAuthProvider.getCredential(verificationCode,S_opt);
+            signIn(credential);
         });
 
-        resendOtpTextView.setOnClickListener((v)->{
-            sendOtp(phoneNumber,true);
-        });
+        resendOtpTextView.setOnClickListener((v)-> sendOtp(phoneNumber,true));
     }
 
     void sendOtp(String phoneNumber,boolean isResend) {
@@ -143,21 +134,17 @@ public class register_otp_page extends AppCompatActivity {
     void signIn(PhoneAuthCredential phoneAuthCredential)
     {
         //login and go to next activity
-        mAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful())
-                {
-                    Intent intent=new Intent(register_otp_page.this, Authentication_Page.class);
-                    intent.putExtra("Phone_num",phoneNumber);
-                    startActivity(intent);
-                }
-                else
-                {
-                    Toast.makeText(register_otp_page.this, "Otp verification failed", Toast.LENGTH_SHORT).show();
-                }
+        mAuth.signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
+            if (task.isSuccessful())
+            {
+                Intent intent=new Intent(register_otp_page.this, Authentication_Page.class);
+                intent.putExtra("Phone_num",phoneNumber);
+                startActivity(intent);
             }
-
+            else
+            {
+                Toast.makeText(register_otp_page.this, "Otp verification failed", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

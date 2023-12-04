@@ -1,7 +1,5 @@
 package com.example.chatapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,10 +7,10 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.hbb20.CountryCodePicker;
@@ -71,13 +69,10 @@ public class Phone_login extends AppCompatActivity {
         };
         E_Mobile.addTextChangedListener(login1);
 
-        sign_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Phone_login.this, register_otp_page.class);
-                intent.putExtra("Number",S_Mobile);
-                startActivity(intent);
-            }
+        sign_up.setOnClickListener(view -> {
+            Intent intent=new Intent(Phone_login.this, register_otp_page.class);
+            intent.putExtra("Number",S_Mobile);
+            startActivity(intent);
         });
 
     }

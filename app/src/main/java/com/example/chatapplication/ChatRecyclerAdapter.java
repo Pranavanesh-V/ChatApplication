@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,7 +46,7 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
         return new ChatModelViewHolder(view);
     }
 
-    class ChatModelViewHolder extends RecyclerView.ViewHolder {
+    static class ChatModelViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout leftChatLayout,rightChatLayout;
         TextView leftChatTextview,rightChatTextview;

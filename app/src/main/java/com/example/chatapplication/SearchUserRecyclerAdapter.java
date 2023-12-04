@@ -1,5 +1,6 @@
 package com.example.chatapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -25,6 +26,7 @@ public class SearchUserRecyclerAdapter extends FirestoreRecyclerAdapter<UserMode
         this.context=context;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onBindViewHolder(@NonNull UserModelViewHolder holder, int position, @NonNull UserModel model) {
         holder.usernameText.setText(model.getUsername());
@@ -42,16 +44,13 @@ public class SearchUserRecyclerAdapter extends FirestoreRecyclerAdapter<UserMode
                     }
                 });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.itemView.setOnClickListener(view -> {
 
-                Intent intent=new Intent(context, new_chat.class);
-                AndroidUtil.passUserModelAsIntent(intent,model);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+            Intent intent=new Intent(context, new_chat.class);
+            AndroidUtil.passUserModelAsIntent(intent,model);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
 
-            }
         });
     }
 
@@ -62,7 +61,7 @@ public class SearchUserRecyclerAdapter extends FirestoreRecyclerAdapter<UserMode
         return new UserModelViewHolder(view);
     }
 
-    class UserModelViewHolder extends RecyclerView.ViewHolder {
+    static class UserModelViewHolder extends RecyclerView.ViewHolder {
         TextView usernameText;
         TextView phoneText;
         ImageView profilePic;

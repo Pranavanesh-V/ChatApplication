@@ -5,24 +5,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
 import java.util.Arrays;
@@ -62,25 +56,17 @@ public class new_chat extends AppCompatActivity {
 
         chatroomId=FirebaseUtil.getChatroomId(FirebaseUtil.currentUserId(),otherUser.getUserId());
 
-        send_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                message=E_Message.getText().toString().trim();
-                if (message.isEmpty())
-                {
-                    Toast.makeText(new_chat.this, "message", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                sendMessageToUser(message);
+        send_btn.setOnClickListener(view -> {
+            message=E_Message.getText().toString().trim();
+            if (message.isEmpty())
+            {
+                Toast.makeText(new_chat.this, "message", Toast.LENGTH_SHORT).show();
+                return;
             }
+            sendMessageToUser(message);
         });
 
-        Back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        Back_btn.setOnClickListener(view -> onBackPressed());
 
         Username_chat.setText(otherUser.getUsername());
         FirebaseUtil.getOtherProfilePicStorageRef(otherUser.getUserId()).getDownloadUrl()
@@ -129,37 +115,31 @@ public class new_chat extends AppCompatActivity {
 
         ChatMessageModel chatMessageModel=new ChatMessageModel(message,FirebaseUtil.currentUserId(),Timestamp.now(), savedUsername);
         FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        if (task.isSuccessful())
-                        {
-                            E_Message.setText("");
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful())
+                    {
+                        E_Message.setText("");
                     }
                 });
     }
 
     void getOrCreateChatroomModel()
     {
-        FirebaseUtil.getChatroomReference(chatroomId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful())
+        FirebaseUtil.getChatroomReference(chatroomId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful())
+            {
+                chatroomModel=task.getResult().toObject(ChatroomModel.class);
+                if (chatroomModel==null)
                 {
-                    chatroomModel=task.getResult().toObject(ChatroomModel.class);
-                    if (chatroomModel==null)
-                    {
-                        //first time chatting with the person
-                        chatroomModel=new ChatroomModel(
-                                chatroomId,
-                                Arrays.asList(FirebaseUtil.currentUserId(),otherUser.getUserId()),
-                                Timestamp.now(),
-                                "",
-                                ""
-                        );
-                        FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
-                    }
+                    //first time chatting with the person
+                    chatroomModel=new ChatroomModel(
+                            chatroomId,
+                            Arrays.asList(FirebaseUtil.currentUserId(),otherUser.getUserId()),
+                            Timestamp.now(),
+                            "",
+                            ""
+                    );
+                    FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
                 }
             }
         });

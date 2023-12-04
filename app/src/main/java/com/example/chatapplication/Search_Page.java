@@ -1,16 +1,15 @@
 package com.example.chatapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.textfield.TextInputLayout;
@@ -56,18 +55,15 @@ public class Search_Page extends AppCompatActivity {
         E_Search.addTextChangedListener(login);
 
 
-        Search.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Handle the click event
-                if (S_Search.isEmpty() || S_Search.length()<3)
-                {
-                    Toast.makeText(Search_Page.this, "Invalid Username", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    setupSearchRecyclerView(S_Search);
-                }
+        Search.setEndIconOnClickListener(view -> {
+            // Handle the click event
+            if (S_Search.isEmpty() || S_Search.length()<3)
+            {
+                Toast.makeText(Search_Page.this, "Invalid Username", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                setupSearchRecyclerView(S_Search);
             }
         });
     }

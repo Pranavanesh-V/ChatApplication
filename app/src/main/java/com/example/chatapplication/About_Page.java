@@ -1,11 +1,10 @@
 package com.example.chatapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class About_Page extends AppCompatActivity {
 
@@ -18,12 +17,7 @@ public class About_Page extends AppCompatActivity {
 
         back4=findViewById(R.id.back4);
 
-        back4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        back4.setOnClickListener(view -> onBackPressed());
     }
 
     @Override

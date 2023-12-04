@@ -19,7 +19,6 @@ import java.io.File;
 public class Profile_page extends AppCompatActivity {
 
     ImageView profilePic;
-    private Uri imageUri;
     private static final int PICK_IMAGE_REQUEST=1;
     EditText usernameInput;
     EditText phoneInput;
@@ -42,13 +41,9 @@ public class Profile_page extends AppCompatActivity {
         getUserData();
 
 
-        updateProfileBtn.setOnClickListener((v -> {
-            updateBtnClick();
-        }));
+        updateProfileBtn.setOnClickListener((v -> updateBtnClick()));
 
-        profilePic.setOnClickListener((v)->{
-            onChooseImageClick(v);
-        });
+        profilePic.setOnClickListener(this::onChooseImageClick);
 
     }
     public void onChooseImageClick(View view) {
@@ -63,7 +58,7 @@ public class Profile_page extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri= data.getData();
+            Uri imageUri = data.getData();
 
             // Start UCrop for image cropping
             startCropActivity(imageUri);
@@ -102,9 +97,7 @@ public class Profile_page extends AppCompatActivity {
 
         if (selectedImageUri != null) {
             FirebaseUtil.getCurrentProfilePicStorageRef().putFile(selectedImageUri)
-                    .addOnCompleteListener(task -> {
-                        updateToFirestore();
-                    });
+                    .addOnCompleteListener(task -> updateToFirestore());
         } else {
             updateToFirestore();
         }

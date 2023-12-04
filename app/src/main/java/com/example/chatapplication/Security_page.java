@@ -1,11 +1,10 @@
 package com.example.chatapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Security_page extends AppCompatActivity {
 
@@ -16,12 +15,7 @@ public class Security_page extends AppCompatActivity {
         setContentView(R.layout.activity_security_page);
         back=findViewById(R.id.back);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        back.setOnClickListener(view -> onBackPressed());
     }
 
     @Override

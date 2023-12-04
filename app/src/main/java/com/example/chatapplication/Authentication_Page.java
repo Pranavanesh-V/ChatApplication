@@ -3,25 +3,17 @@ package com.example.chatapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.DigitsKeyListener;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
-import com.hbb20.CountryCodePicker;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -99,29 +91,23 @@ public class Authentication_Page extends AppCompatActivity {
 
 
 
-        sign_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        sign_up.setOnClickListener(view -> {
 
-                if (TextUtils.isEmpty(S_Username) || TextUtils.isEmpty(S_Mobile) ||TextUtils.isEmpty(S_Email) || TextUtils.isEmpty(S_Password))
-                {
-                    Toast.makeText(Authentication_Page.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(Authentication_Page.this, "Created Successfully", Toast.LENGTH_SHORT).show();
-                    System.out.println(S_Username+" "+S_Email+" "+S_Mobile+" "+S_Password);
-                    setUsername(S_Username,S_Email,S_Password,S_Mobile);
-                }
+            if (TextUtils.isEmpty(S_Username) || TextUtils.isEmpty(S_Mobile) ||TextUtils.isEmpty(S_Email) || TextUtils.isEmpty(S_Password))
+            {
+                Toast.makeText(Authentication_Page.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(Authentication_Page.this, "Created Successfully", Toast.LENGTH_SHORT).show();
+                System.out.println(S_Username+" "+S_Email+" "+S_Mobile+" "+S_Password);
+                setUsername(S_Username,S_Email,S_Password,S_Mobile);
             }
         });
 
-        click.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Authentication_Page.this, login_page.class);
-                startActivity(intent);
-            }
+        click.setOnClickListener(view -> {
+            Intent intent=new Intent(Authentication_Page.this, login_page.class);
+            startActivity(intent);
         });
     }
 
@@ -141,15 +127,12 @@ public class Authentication_Page extends AppCompatActivity {
         {
             userModel=new UserModel(s_Mobile,username, Timestamp.now(),Email,Password,FirebaseUtil.currentUserId());
         }
-        FirebaseUtil.currentUserDetails().set(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful())
-                {
-                    Intent intent=new Intent(Authentication_Page.this, login_page.class);
-                    startActivity(intent);
-                    finish();
-                }
+        FirebaseUtil.currentUserDetails().set(userModel).addOnCompleteListener(task -> {
+            if (task.isSuccessful())
+            {
+                Intent intent=new Intent(Authentication_Page.this, login_page.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
