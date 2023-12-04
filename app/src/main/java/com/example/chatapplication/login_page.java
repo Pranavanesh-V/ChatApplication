@@ -121,6 +121,7 @@ public class login_page extends AppCompatActivity {
                         {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("Logged", "yes");
+                            editor.putString("username",s_Username);
                             editor.apply();
 
                             Toast.makeText(login_page.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();

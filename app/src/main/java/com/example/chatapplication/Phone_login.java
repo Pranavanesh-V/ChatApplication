@@ -24,7 +24,7 @@ public class Phone_login extends AppCompatActivity {
     CountryCodePicker countryCodePicker;
     String S_Mobile;
     Button sign_up;
-    TextView click;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class Phone_login extends AppCompatActivity {
         E_Mobile=findViewById(R.id.E_Mobile);
         countryCodePicker=findViewById(R.id.countryCode);
         sign_up=findViewById(R.id.sign_up);
-        click=findViewById(R.id.click);
+
 
 
         //for mobile number
@@ -80,12 +80,5 @@ public class Phone_login extends AppCompatActivity {
             }
         });
 
-        click.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Phone_login.this, login_page.class);
-                startActivity(intent);
-            }
-        });
     }
 }

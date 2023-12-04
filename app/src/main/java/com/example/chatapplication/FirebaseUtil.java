@@ -27,7 +27,7 @@ public class FirebaseUtil
 
     public static String getChatroomId(String userId1,String userId2)
     {
-        if (userId2.hashCode()<userId2.hashCode())
+        if (userId1.hashCode()<userId2.hashCode())
         {
             return userId1+"_"+userId2;
         }

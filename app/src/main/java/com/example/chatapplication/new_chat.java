@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,6 +38,8 @@ public class new_chat extends AppCompatActivity {
     EditText E_Message;
     String chatroomId,message="";
     ChatroomModel chatroomModel;
+    String savedUsername;
+    private static final String PREFS_NAME = "MyPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,9 @@ public class new_chat extends AppCompatActivity {
         Message=findViewById(R.id.Message);
         E_Message=findViewById(R.id.E_Message);
         otherUser=AndroidUtil.getUserModelFromIntent(getIntent());
+
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        savedUsername = sharedPreferences.getString("username", "");
 
 
         chatroomId=FirebaseUtil.getChatroomId(FirebaseUtil.currentUserId(),otherUser.getUserId());
@@ -109,7 +116,7 @@ public class new_chat extends AppCompatActivity {
         FirebaseUtil.getChatroomReference(chatroomId).set(chatroomModel);
 
 
-        ChatMessageModel chatMessageModel=new ChatMessageModel(message,FirebaseUtil.currentUserId(),Timestamp.now());
+        ChatMessageModel chatMessageModel=new ChatMessageModel(message,FirebaseUtil.currentUserId(),Timestamp.now(), savedUsername);
         FirebaseUtil.getChatroomMessageReference(chatroomId).add(chatMessageModel)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override

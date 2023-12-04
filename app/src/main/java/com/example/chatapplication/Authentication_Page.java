@@ -34,6 +34,7 @@ public class Authentication_Page extends AppCompatActivity {
     EditText E_User_name,E_Email,E_Password;
     String S_Username,S_Email,S_Password,S_Mobile;
     UserModel userModel;
+    TextView click;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class Authentication_Page extends AppCompatActivity {
         setContentView(R.layout.activity_authentication_page);
 
         sign_up=findViewById(R.id.sign_up);
-
+        click=findViewById(R.id.click);
         Username=findViewById(R.id.Username);
         E_User_name=findViewById(R.id.E_user_name);
 
@@ -112,6 +113,14 @@ public class Authentication_Page extends AppCompatActivity {
                     System.out.println(S_Username+" "+S_Email+" "+S_Mobile+" "+S_Password);
                     setUsername(S_Username,S_Email,S_Password,S_Mobile);
                 }
+            }
+        });
+
+        click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Authentication_Page.this, login_page.class);
+                startActivity(intent);
             }
         });
     }

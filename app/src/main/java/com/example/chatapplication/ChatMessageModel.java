@@ -7,6 +7,15 @@ public class ChatMessageModel
     private String Message;
     private String senderId;
     private Timestamp timestamp;
+    private String TextOwner;
+
+    public String getTextOwner() {
+        return TextOwner;
+    }
+
+    public void setTextOwner(String textOwner) {
+        TextOwner = textOwner;
+    }
 
     public ChatMessageModel()
     {
@@ -37,9 +46,10 @@ public class ChatMessageModel
         this.timestamp = timestamp;
     }
 
-    public ChatMessageModel(String message, String senderId, Timestamp timestamp) {
-        Message = message;
+    public ChatMessageModel(String message, String senderId, Timestamp timestamp,String TextOwner) {
+        this.Message = message;
         this.senderId = senderId;
         this.timestamp = timestamp;
+        this.TextOwner=TextOwner;
     }
 }
