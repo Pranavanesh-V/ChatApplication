@@ -21,6 +21,15 @@
         android:theme="@style/Theme.ChatApplication"
         tools:targetApi="31">
         <activity
+            android:name=".Profile_page"
+            android:exported="false" />
+        <activity
+            android:name=".About_Page"
+            android:exported="false" />
+        <activity
+            android:name=".Security_page"
+            android:exported="false" />
+        <activity
             android:name=".Search_Page"
             android:exported="false" />
         <activity
@@ -37,7 +46,7 @@
             android:exported="false" />
         <activity
             android:name=".new_chat"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Home_page"
             android:exported="false"

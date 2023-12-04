@@ -38,4 +38,9 @@
     <string name="search1">Search</string>
     <string name="username">Username</string>
     <string name="you">You: </string>
+    <string name="about">About</string>
+    <string name="about_the_chat_application">About the Chat Application</string>
+    <string name="content">This is an Application which units the peoples from all over the world together within a small device.A Chat Application makes it easy to communicate with people anywhere in the world by sending and receiving messages in real time </string>
+    <string name="content2">Chatting App allows you to communicate  with your customers in the web chat rooms, It enables you to send and receive messages. Chatting apps makes it easier,simple,and faster to connect with everyone and it also easy to use.</string>
+    <string name="content3">There are many types of but this is one in kind that no one has ever used.</string>
 </resources>
