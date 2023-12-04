@@ -37,4 +37,5 @@
     <string name="send_otp">Send Otp</string>
     <string name="search1">Search</string>
     <string name="username">Username</string>
+    <string name="you">You: </string>
 </resources>

@@ -10,21 +10,31 @@ public class ChatroomModel
     List<String> UserID;
     com.google.firebase.Timestamp lastMessageTimestamp;
     String lastMessageSenderId;
+    String lastMessage;
 
     public ChatroomModel()
     {
 
     }
 
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
+    }
+
     public Timestamp getLastMessageTimestamp() {
         return lastMessageTimestamp;
     }
 
-    public ChatroomModel(String chatroomId, List<String> userID, com.google.firebase.Timestamp lastMessageTimestamp, String lastMessageSenderId) {
+    public ChatroomModel(String chatroomId, List<String> userID, com.google.firebase.Timestamp lastMessageTimestamp, String lastMessageSenderId,String lastMessage) {
         this.chatroomId = chatroomId;
-        UserID = userID;
+        this.UserID = userID;
         this.lastMessageTimestamp = lastMessageTimestamp;
         this.lastMessageSenderId = lastMessageSenderId;
+        this.lastMessage=lastMessage;
     }
 
     public String getChatroomId() {
