@@ -10,15 +10,7 @@ public class UserModel
     private String Email;
     private String Password;
     private String userId;
-    private String fcmToken;
 
-    public String getFcmToken() {
-        return fcmToken;
-    }
-
-    public void setFcmToken(String fcmToken) {
-        this.fcmToken = fcmToken;
-    }
 
     public UserModel(String phone, String username, Timestamp createdTimestamp, String email, String password, String userId) {
         this.phone = phone;
