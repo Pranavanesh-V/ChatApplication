@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 
 public class Authentication_Page extends AppCompatActivity {
 
-    TextView click;
+
     Button sign_up;
     TextInputLayout Username,Email,Password;
     EditText E_User_name,E_Email,E_Password;
@@ -51,7 +51,7 @@ public class Authentication_Page extends AppCompatActivity {
         Password=findViewById(R.id.Password);
         E_Password=findViewById(R.id.E_Password);
 
-        click=findViewById(R.id.click);
+
 
         S_Mobile=getIntent().getStringExtra("Phone_num");
 
@@ -97,13 +97,6 @@ public class Authentication_Page extends AppCompatActivity {
 
 
 
-        click.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(Authentication_Page.this, login_page.class);
-                startActivity(intent);
-            }
-        });
 
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override

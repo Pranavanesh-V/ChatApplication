@@ -12,6 +12,7 @@ import android.text.method.DigitsKeyListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.hbb20.CountryCodePicker;
@@ -23,6 +24,7 @@ public class Phone_login extends AppCompatActivity {
     CountryCodePicker countryCodePicker;
     String S_Mobile;
     Button sign_up;
+    TextView click;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class Phone_login extends AppCompatActivity {
         E_Mobile=findViewById(R.id.E_Mobile);
         countryCodePicker=findViewById(R.id.countryCode);
         sign_up=findViewById(R.id.sign_up);
+        click=findViewById(R.id.click);
 
 
         //for mobile number
@@ -73,6 +76,14 @@ public class Phone_login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(Phone_login.this, register_otp_page.class);
                 intent.putExtra("Number",S_Mobile);
+                startActivity(intent);
+            }
+        });
+
+        click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(Phone_login.this, login_page.class);
                 startActivity(intent);
             }
         });
