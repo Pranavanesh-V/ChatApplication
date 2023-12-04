@@ -117,6 +117,8 @@ public class login_page extends AppCompatActivity {
                     if(userModel!=null){
                         String name = userModel.getUsername();
                         String password = userModel.getPassword();
+                        System.out.println(s_Username+" "+s_Password);
+                        System.out.println(name+password);
                         if (s_Password.equals(password) && s_Username.equals(name))
                         {
                             SharedPreferences.Editor editor = sharedPreferences.edit();

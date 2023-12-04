@@ -32,7 +32,7 @@
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/Back_btn"
             android:scaleType="centerCrop"
-            android:src="@drawable/tst"
+            android:src="@drawable/user"
             app:shapeAppearanceOverlay="@style/circular"
             tools:ignore="ContentDescription,ImageContrastCheck" />
 

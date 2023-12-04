@@ -153,7 +153,7 @@ public class Home_page extends AppCompatActivity  {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("Logged");
         editor.apply();
-        Intent intent=new Intent(Home_page.this, login_page.class);
+        Intent intent=new Intent(Home_page.this, Phone_login.class);
         startActivity(intent);
     }
 

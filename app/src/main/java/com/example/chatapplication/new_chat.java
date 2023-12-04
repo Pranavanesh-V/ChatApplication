@@ -3,6 +3,7 @@ package com.example.chatapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -82,6 +83,13 @@ public class new_chat extends AppCompatActivity {
         });
 
         Username_chat.setText(otherUser.getUsername());
+        FirebaseUtil.getOtherProfilePicStorageRef(otherUser.getUserId()).getDownloadUrl()
+                .addOnCompleteListener(t -> {
+                    if (t.isSuccessful()) {
+                        Uri uri = t.getResult();
+                        AndroidUtil.setProfilePic(this, uri, Chat_Profile);
+                    }
+                });
 
         getOrCreateChatroomModel();
         setupChatRecyclerView();

@@ -116,6 +116,7 @@ public class Profile_page extends AppCompatActivity {
                     setInProgress(false);
                     if(task.isSuccessful()){
                         Toast.makeText(this,"Updated successfully",Toast.LENGTH_SHORT).show();
+                        finish();
                     }else{
                         Toast.makeText(this,"Updated failed",Toast.LENGTH_SHORT).show();
                     }
