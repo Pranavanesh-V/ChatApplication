@@ -3,6 +3,7 @@ package com.example.chatapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,7 +19,7 @@ import com.google.firebase.firestore.Query;
 
 public class Home_page extends AppCompatActivity  {
 
-    ImageView search;
+    ImageView search,profile;
     RecyclerView recyclerView;
     RecentChatRecyclerAdapter adapter;
     private static final String PREFS_NAME = "MyPrefs";
@@ -34,9 +35,10 @@ public class Home_page extends AppCompatActivity  {
         recyclerView = findViewById(R.id.recycler_view);
         New_Chat =findViewById(R.id.New_Chat);
         menu=findViewById(R.id.menu);
+        profile=findViewById(R.id.profile);
 
         setupRecyclerView();
-
+        getUserData();
         New_Chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,4 +157,15 @@ public class Home_page extends AppCompatActivity  {
         startActivity(intent);
     }
 
+    void getUserData() {
+
+        FirebaseUtil.getCurrentProfilePicStorageRef().getDownloadUrl()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Uri uri = task.getResult();
+                        AndroidUtil.setProfilePic(this, uri, profile);
+                    }
+                });
+
+    }
 }

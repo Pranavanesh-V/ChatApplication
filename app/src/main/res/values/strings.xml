@@ -45,4 +45,6 @@
     <string name="content3">There are many types of but this is one in kind that no one has ever used.</string>
     <string name="content4">There are many types of but this is one in kind that no one has ever used. For any trouble contact details are Mail ID=XXX@gmail.com ,Phone no:XXXXXXXXXX Address:NO 12,XXXX XXX st,XXXXX district,Tamil Nadu</string>
     <string name="security">Security</string>
+    <string name="phone">Phone</string>
+    <string name="update_profile">Update profile</string>
 </resources>
