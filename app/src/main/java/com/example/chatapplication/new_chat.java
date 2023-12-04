@@ -1,15 +1,9 @@
 package com.example.chatapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,14 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.Query;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class new_chat extends AppCompatActivity {
@@ -34,7 +33,7 @@ public class new_chat extends AppCompatActivity {
     TextView Username_chat;
     ImageView Chat_Profile;
     RecyclerView recyclerView;
-    TextInputLayout Message;
+    ChatRecyclerAdapter adapter;
     EditText E_Message;
     String chatroomId,message="";
     ChatroomModel chatroomModel;
@@ -52,7 +51,7 @@ public class new_chat extends AppCompatActivity {
         Chat_Profile=findViewById(R.id.Chat_Profile);
         recyclerView=findViewById(R.id.chat_recyclerView);
 
-        Message=findViewById(R.id.Message);
+
         E_Message=findViewById(R.id.E_Message);
         otherUser=AndroidUtil.getUserModelFromIntent(getIntent());
 
@@ -62,30 +61,10 @@ public class new_chat extends AppCompatActivity {
 
         chatroomId=FirebaseUtil.getChatroomId(FirebaseUtil.currentUserId(),otherUser.getUserId());
 
-        TextWatcher login=new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                if (!E_Message.getText().toString().trim().isEmpty())
-                {
-                    message= E_Message.getText().toString().trim();
-                }
-            }
-        };
-        E_Message.addTextChangedListener(login);
-
         send_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                message=E_Message.getText().toString().trim();
                 if (message.isEmpty())
                 {
                     Toast.makeText(new_chat.this, "message", Toast.LENGTH_SHORT).show();
@@ -105,10 +84,33 @@ public class new_chat extends AppCompatActivity {
         Username_chat.setText(otherUser.getUsername());
 
         getOrCreateChatroomModel();
+        setupChatRecyclerView();
 
 
     }
 
+    void setupChatRecyclerView()
+    {
+        Query query = FirebaseUtil.getChatroomMessageReference(chatroomId)
+                .orderBy("timestamp", Query.Direction.DESCENDING);
+
+        FirestoreRecyclerOptions<ChatMessageModel> options = new FirestoreRecyclerOptions.Builder<ChatMessageModel>()
+                .setQuery(query,ChatMessageModel.class).build();
+
+        adapter = new ChatRecyclerAdapter(options,getApplicationContext());
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setReverseLayout(true);
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                recyclerView.smoothScrollToPosition(0);
+            }
+        });
+    }
     void sendMessageToUser(String message)
     {
         chatroomModel.setLastMessageTimestamp(Timestamp.now());
